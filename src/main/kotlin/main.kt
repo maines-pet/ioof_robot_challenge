@@ -2,6 +2,31 @@ import robot.TableTop
 import java.io.File
 
 fun main(args: Array<String>) {
+    if (args.size > 1) {
+        println("Program only accepts 1 argument.")
+        return
+    }
+
+    //Input file mode
+    if (args.size == 1) {
+        val inputFile = File(args[0])
+        if (!inputFile.exists()) {
+            println("File doesn't exist. Please try again.")
+            return
+        } else {
+            val tableTop = TableTop()
+
+            inputFile.useLines {
+                it.toList().forEach {
+                    line -> tableTop.processCommand(line.uppercase())
+                }
+            }
+            return
+        }
+    }
+
+
+    //Console Mode
     val tableTop = TableTop()
 
     val commands = """List of Commands
