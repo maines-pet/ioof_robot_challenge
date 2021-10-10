@@ -28,8 +28,11 @@ class TableTop(private val length: Int = 5, private val width: Int = 5) {
 
         if (commandUppercase.startsWith("ROBOT ", true)) {
             parseRobotCommand(commandUppercase)?.let {
-                activeRobot = robots.find { robot -> robot.id == it }
-                println("""ROBOT $it is now active""")
+                val robotFound = robots.find { robot -> robot.id == it }
+                if (robotFound != null) {
+                    activeRobot = robotFound
+                    println("""ROBOT ${activeRobot!!.id} is now active""")
+                }
             }
             return
         }

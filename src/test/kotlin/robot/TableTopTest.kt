@@ -269,6 +269,28 @@ internal class TableTopTest {
         assertEquals(expected, actual)
     }
 
+    @Test
+    fun `Call ROBOT x command will set the active robot`() {
+
+    }
+
+    @Test
+    fun `Non-existing ROBOT x command will be ignored`() {
+        val tableTop = TableTop()
+        tableTop.processCommand("PLACE 4,3,NORTH")
+        tableTop.processCommand("ROBOT 2")
+
+        with(tableTop.activeRobot) {
+            assertEquals(1, this?.id)
+            assertEquals(4, this?.xPos)
+            assertEquals(3, this?.yPos)
+            assertEquals(Direction.NORTH, this?.face)
+
+        }
+
+    }
+
+
     private fun String.normaliseNewLine() : String {
         return this.replace("(\\r\\n|\\r|\\n)".toRegex(), "")
     }
